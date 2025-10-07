@@ -27,11 +27,12 @@ header {
   display: flex; 
   justify-content: space-between; 
   align-items: center; 
-  padding: 20px 80px; /* 👈 increased padding to move content away from edges */
+  padding: 20px 80px;
   background: var(--dark-blue);
   color: var(--white);
   box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
   width: 100%;
+  flex-wrap: wrap;
 }
 .logo { 
   font-family: 'Playfair Display'; 
@@ -39,7 +40,7 @@ header {
   font-weight: 700; 
   color: var(--white);
 }
-.nav-links { display: flex; gap: 20px; align-items: center; }
+.nav-links { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
 .nav-links a { 
   padding: 8px 14px; 
   border-radius: 8px; 
@@ -60,15 +61,15 @@ header {
 .container { max-width: var(--max-width); margin: 0 auto; padding: 28px; }
 
 /* Hero Section */
-.hero { display: flex; align-items: center; justify-content: space-between; gap: 40px; margin-top: 36px; }
-.hero-left { flex: 1; }
+.hero { display: flex; align-items: center; justify-content: space-between; gap: 40px; margin-top: 36px; flex-wrap: wrap; }
+.hero-left { flex: 1; min-width: 280px; }
 .hero-left h1 { font-family: 'Playfair Display', serif; font-size: 44px; color: var(--dark-blue); margin-bottom: 12px; }
 .hero-left p { color: var(--gray); margin-bottom: 20px; line-height: 1.6; }
-.cta { display: flex; gap: 12px; }
+.cta { display: flex; gap: 12px; flex-wrap: wrap; }
 .btn { padding: 12px 20px; border-radius: 10px; font-weight: 700; cursor: pointer; border: none; }
 .btn-primary { background: var(--blue-gray); color: var(--white); }
 .btn-outline { border: 2px solid var(--dark-blue); background: transparent; color: var(--dark-blue); }
-.hero-right { flex: 1; display: flex; justify-content: center; }
+.hero-right { flex: 1; display: flex; justify-content: center; min-width: 280px; }
 .hero-right img { width: 100%; max-width: 360px; border-radius: 16px; object-fit: cover; box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
 
 /* About & Services */
@@ -76,9 +77,8 @@ header {
 .about-text, .services { flex: 1; min-width: 280px; padding: 24px; border-radius: 16px; background: var(--white); box-shadow: 0 6px 18px rgba(0,0,0,0.05); }
 .about-text h2, .services h3 { color: var(--dark-blue); margin-bottom: 12px; }
 
-/* 👇 Added spacing between paragraphs */
 .about-text p {
-  color: var(blue);
+  color: var(--blue-gray);
   margin-bottom: 16px;
   line-height: 1.7;
 }
@@ -91,7 +91,7 @@ header {
 .portfolio h2 { color: var(--blue-gray); margin-bottom: 20px; }
 .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 16px; }
 .port-item { position: relative; overflow: hidden; border-radius: 14px; cursor: pointer; transition: transform 0.3s; }
-.port-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s; }
+.port-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s; border-radius: 14px; }
 .port-item:hover img { transform: scale(1.05); }
 
 /* Lightbox */
@@ -157,9 +157,94 @@ header {
 /* Footer */
 footer { text-align: center; padding: 24px; color: var(--blue-gray); border-radius: 12px; font-weight: 500; }
 
-/* Responsive */
-@media(max-width:900px){ .hero { flex-direction: column; } .about-services { flex-direction: column; } }
-@media(max-width:480px){ .hero-left h1{ font-size: 36px; } .hero-right img{ max-width: 280px; } }
+/* ✅ Responsive Adjustments */
+
+/* 🖥 Tablet */
+@media (max-width: 900px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px 40px;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-left {
+    order: 2;
+  }
+
+  .hero-right {
+    order: 1;
+    margin-bottom: 20px;
+  }
+
+  .about-services {
+    flex-direction: column;
+  }
+
+  .portfolio-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+
+  .contact {
+    flex-direction: column;
+  }
+}
+
+/* 📱 Mobile */
+@media (max-width: 600px) {
+  header {
+    padding: 16px 24px;
+  }
+
+  .logo {
+    font-size: 22px;
+  }
+
+  .nav-links {
+    gap: 8px;
+  }
+
+  .hero-left h1 {
+    font-size: 32px;
+  }
+
+  .hero-left p {
+    font-size: 15px;
+  }
+
+  .btn {
+    font-size: 14px;
+    padding: 10px 16px;
+  }
+
+  .about-text, .services {
+    padding: 18px;
+  }
+
+  .portfolio-grid {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+  }
+
+  .contact {
+    padding: 24px;
+  }
+
+  footer {
+    font-size: 14px;
+    padding: 16px;
+  }
+}
 </style>
 </head>
 <body>
@@ -213,26 +298,26 @@ footer { text-align: center; padding: 24px; color: var(--blue-gray); border-radi
   <section class="portfolio" id="portfolio">
     <h2>My Works</h2>
     <div class="portfolio-grid">
-      <div class="port-item"><img src="MyPoster.jpg" alt=""></div>
-      <div class="port-item"><img src="ChefAdia.jpg" alt=""></div>
-      <div class="port-item"><img src="concertt.jpg" alt=""></div>
-      <div class="port-item"><img src="I2.jpg" alt=""></div>
-      <div class="port-item"><img src="5DaysToGo.jpg" alt=""></div>
-      <div class="port-item"><img src="cctvCamera.jpg" alt=""></div>
-      <div class="port-item"><img src="MenuItuze.jpg" alt=""></div>
-      <div class="port-item"><img src="the mirror.jpg" alt=""></div>
-      <div class="port-item"><img src="VirtualChoirPrayers.jpg" alt=""></div>
-      <div class="port-item"><img src="Ramec&Esther10Days.jpg" alt=""></div>
-      <div class="port-item"><img src="WebDevelopment-Poster.jpg" alt=""></div>
-      <div class="port-item"><img src="FarewellPoster.jpg" alt=""></div>
-      <div class="port-item"><img src="HarvestersOnly.jpg" alt=""></div>
-      <div class="port-item"><img src="Vestine's inv.jpg" alt=""></div>
-      <div class="port-item"><img src="Untitled-1.jpg" alt=""></div>
-      <div class="port-item"><img src="NewMegTrip.jpg" alt=""></div>
-      <div class="port-item"><img src="KWIKIFOOD.jpg" alt=""></div>
-      <div class="port-item"><img src="rda.jpg" alt=""></div>
-      <div class="port-item"><img src="Concert1.jpg" alt=""></div>
-      <div class="port-item"><img src="STHS-POST.jpg" alt=""></div>
+      <div class="port-item"><img src="MyPoster.jpg" alt="" loading="lazy"></div>
+      <div class="port-item"><img src="ChefAdia.jpg" alt="" loading="lazy"></div>
+      <div class="port-item"><img src="concertt.jpg" alt="" loading="lazy"></div>
+      <div class="port-item"><img src="I2.jpg" alt="" loading="lazy"></div>
+      <div class="port-item"><img src="5DaysToGo.jpg" alt="" loading="lazy"></div>
+      <div class="port-item"><img src="cctvCamera.jpg" alt="" loading="lazy"></div>
+      <div class="port-item"><img src="MenuItuze.jpg" alt="" loading="lazy"></div>
+      <div class="port-item"><img src="the mirror.jpg" alt="" loading="lazy"></div>
+      <div class="port-item"><img src="VirtualChoirPrayers.jpg" alt="" loading="lazy"></div>
+      <div class="port-item"><img src="Ramec&Esther10Days.jpg" alt="" loading="lazy"></div>
+      <div class="port-item"><img src="WebDevelopment-Poster.jpg" alt="" loading="lazy"></div>
+      <div class="port-item"><img src="FarewellPoster.jpg" alt="" loading="lazy"></div>
+      <div class="port-item"><img src="HarvestersOnly.jpg" alt="" loading="lazy"></div>
+      <div class="port-item"><img src="Vestine's inv.jpg" alt="" loading="lazy"></div>
+      <div class="port-item"><img src="Untitled-1.jpg" alt="" loading="lazy"></div>
+      <div class="port-item"><img src="NewMegTrip.jpg" alt="" loading="lazy"></div>
+      <div class="port-item"><img src="KWIKIFOOD.jpg" alt="" loading="lazy"></div>
+      <div class="port-item"><img src="rda.jpg" alt="" loading="lazy"></div>
+      <div class="port-item"><img src="Concert1.jpg" alt="" loading="lazy"></div>
+      <div class="port-item"><img src="STHS-POST.jpg" alt="" loading="lazy"></div>
     </div>
   </section>
 
@@ -254,7 +339,6 @@ footer { text-align: center; padding: 24px; color: var(--blue-gray); border-radi
       <p><i class="fab fa-instagram"></i> <a href="https://instagram.com/ganza_gnz" target="_blank">@ganza_gnz</a></p>
     </div>
 
-    <!-- ✅ Working contact form -->
     <form action="https://formspree.io/f/xdkwdjle" method="POST">
       <input type="text" name="name" placeholder="Your Name" required>
       <input type="email" name="email" placeholder="Your Email" required>
