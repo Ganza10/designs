@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Ganza Creations — Rise with Ganza</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+  --dark-blue: #2C3E50;
+  --blue-gray: #34495E;
+  --gray: #7F8C8D;
+  --light-gray: #BDC3C7;
+  --lighter-gray: #ECF0F1;
+  --white: #ffffff;
+  --max-width: 1100px;
+}
+
+/* Reset */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', sans-serif; background: var(--lighter-gray); color: var(--dark-blue); }
+a { text-decoration: none; color: inherit; }
+
+/* Header & Nav */
+header { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  padding: 20px 80px; /* 👈 increased padding to move content away from edges */
+  background: var(--dark-blue);
+  color: var(--white);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
+  width: 100%;
+}
+.logo { 
+  font-family: 'Playfair Display'; 
+  font-size: 28px; 
+  font-weight: 700; 
+  color: var(--white);
+}
+.nav-links { display: flex; gap: 20px; align-items: center; }
+.nav-links a { 
+  padding: 8px 14px; 
+  border-radius: 8px; 
+  font-weight: 600; 
+  transition: 0.3s; 
+  color: var(--white);
+}
+.nav-links a.primary { 
+  background: var(--white); 
+  color: var(--dark-blue); 
+}
+.nav-links a:hover { 
+  background: var(--blue-gray); 
+  color: var(--white); 
+}
+
+/* Container */
+.container { max-width: var(--max-width); margin: 0 auto; padding: 28px; }
+
+/* Hero Section */
+.hero { display: flex; align-items: center; justify-content: space-between; gap: 40px; margin-top: 36px; }
+.hero-left { flex: 1; }
+.hero-left h1 { font-family: 'Playfair Display', serif; font-size: 44px; color: var(--dark-blue); margin-bottom: 12px; }
+.hero-left p { color: var(--gray); margin-bottom: 20px; line-height: 1.6; }
+.cta { display: flex; gap: 12px; }
+.btn { padding: 12px 20px; border-radius: 10px; font-weight: 700; cursor: pointer; border: none; }
+.btn-primary { background: var(--blue-gray); color: var(--white); }
+.btn-outline { border: 2px solid var(--dark-blue); background: transparent; color: var(--dark-blue); }
+.hero-right { flex: 1; display: flex; justify-content: center; }
+.hero-right img { width: 100%; max-width: 360px; border-radius: 16px; object-fit: cover; box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+
+/* About & Services */
+.about-services { display: flex; gap: 28px; margin: 50px 0; flex-wrap: wrap; }
+.about-text, .services { flex: 1; min-width: 280px; padding: 24px; border-radius: 16px; background: var(--white); box-shadow: 0 6px 18px rgba(0,0,0,0.05); }
+.about-text h2, .services h3 { color: var(--dark-blue); margin-bottom: 12px; }
+
+/* 👇 Added spacing between paragraphs */
+.about-text p {
+  color: var(blue);
+  margin-bottom: 16px;
+  line-height: 1.7;
+}
+
+.services ul { list-style: none; display: grid; gap: 10px; }
+.services li { padding: 10px 14px; border-radius: 12px; background: var(--light-gray); color: var(--dark-blue); font-weight: 600; }
+
+/* Portfolio */
+.portfolio { margin: 50px 0; }
+.portfolio h2 { color: var(--blue-gray); margin-bottom: 20px; }
+.portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 16px; }
+.port-item { position: relative; overflow: hidden; border-radius: 14px; cursor: pointer; transition: transform 0.3s; }
+.port-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s; }
+.port-item:hover img { transform: scale(1.05); }
+
+/* Lightbox */
+.lightbox {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.9);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.lightbox-counter {
+  color: #fff;
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+.lightbox-img {
+  max-width: 90%;
+  max-height: 70%;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+.close {
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  color: #fff;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  padding: 16px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 40px;
+  user-select: none;
+  transform: translateY(-50%);
+}
+.prev { left: 20px; }
+.next { right: 20px; }
+.prev:hover, .next:hover, .close:hover { color: #BDC3C7; }
+
+/* Contact */
+.contact { background: var(--white); padding: 36px; border-radius: 16px; box-shadow: 0 6px 18px rgba(0,0,0,0.05); margin-bottom: 50px; display: flex; gap: 24px; flex-wrap: wrap; }
+.contact-info { flex: 1; min-width: 280px; }
+.contact-info h3 { color: var(--dark-blue); margin-bottom: 16px; }
+.contact-info p { margin-bottom: 12px; display: flex; align-items: center; gap: 10px; color: var(--gray); }
+.contact-info p i { color: var(--blue-gray); font-size: 18px; }
+.contact form { flex: 1; min-width: 280px; display: grid; gap: 12px; }
+.contact input, .contact textarea { padding: 10px; border-radius: 8px; border: 1px solid var(--light-gray); }
+.contact button { padding: 12px; border-radius: 10px; border: none; background: var(--blue-gray); color: var(--white); font-weight: 700; cursor: pointer; }
+.contact button:hover { background: var(--dark-blue); }
+
+/* Footer */
+footer { text-align: center; padding: 24px; color: var(--blue-gray); border-radius: 12px; font-weight: 500; }
+
+/* Responsive */
+@media(max-width:900px){ .hero { flex-direction: column; } .about-services { flex-direction: column; } }
+@media(max-width:480px){ .hero-left h1{ font-size: 36px; } .hero-right img{ max-width: 280px; } }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="logo">Ganza Creations</div>
+  <div class="nav-links">
+    <a href="#portfolio">Portfolio</a>
+    <a href="#services">Services</a>
+    <a class="primary" href="#contact">Contact</a>
+  </div>
+</header>
+
+<div class="container">
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-left">
+      <h1>Rise with Ganza</h1>
+      <p>Creating modern, eye-catching designs: flyers, posters, social media graphics, branding, and more to help your ideas stand out.</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="#portfolio">View Work</a>
+        <a class="btn btn-outline" href="#contact">Contact Me</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <img src="65.jpg" alt="Ganza Creations">
+    </div>
+  </section>
+
+  <!-- About & Services -->
+  <section class="about-services">
+    <div class="about-text">
+      <h2>About Me</h2>
+      <p>Hi! I’m a passionate graphic designer who loves turning ideas into visually engaging designs. I specialize in creating flyers, posters, social media graphics, logos, and complete branding solutions.</p>
+      <p>My goal is to help businesses, events, and individuals communicate their message clearly and stylishly. I enjoy experimenting with colors, typography, and layouts to craft designs that leave a lasting impression.</p>
+    </div>
+    <div class="services" id="services">
+      <h3>Services</h3>
+      <ul>
+        <li>Flyer & Poster Design</li>
+        <li>Logo & Branding Design</li>
+        <li>Social Media Post Design</li>
+        <li>Business Card & Letterhead Design</li>
+        <li>Invitation & Event Banner Design</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Portfolio -->
+  <section class="portfolio" id="portfolio">
+    <h2>My Works</h2>
+    <div class="portfolio-grid">
+      <div class="port-item"><img src="MyPoster.jpg" alt=""></div>
+      <div class="port-item"><img src="ChefAdia.jpg" alt=""></div>
+      <div class="port-item"><img src="concertt.jpg" alt=""></div>
+      <div class="port-item"><img src="I2.jpg" alt=""></div>
+      <div class="port-item"><img src="5DaysToGo.jpg" alt=""></div>
+      <div class="port-item"><img src="cctvCamera.jpg" alt=""></div>
+      <div class="port-item"><img src="MenuItuze.jpg" alt=""></div>
+      <div class="port-item"><img src="the mirror.jpg" alt=""></div>
+      <div class="port-item"><img src="VirtualChoirPrayers.jpg" alt=""></div>
+      <div class="port-item"><img src="Ramec&Esther10Days.jpg" alt=""></div>
+      <div class="port-item"><img src="WebDevelopment-Poster.jpg" alt=""></div>
+      <div class="port-item"><img src="FarewellPoster.jpg" alt=""></div>
+      <div class="port-item"><img src="HarvestersOnly.jpg" alt=""></div>
+      <div class="port-item"><img src="Vestine's inv.jpg" alt=""></div>
+      <div class="port-item"><img src="Untitled-1.jpg" alt=""></div>
+      <div class="port-item"><img src="NewMegTrip.jpg" alt=""></div>
+      <div class="port-item"><img src="KWIKIFOOD.jpg" alt=""></div>
+      <div class="port-item"><img src="rda.jpg" alt=""></div>
+      <div class="port-item"><img src="Concert1.jpg" alt=""></div>
+      <div class="port-item"><img src="STHS-POST.jpg" alt=""></div>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox">
+    <span class="close">&times;</span>
+    <div class="lightbox-counter"></div>
+    <img class="lightbox-img" src="" alt="">
+    <a class="prev">&#10094;</a>
+    <a class="next">&#10095;</a>
+  </div>
+
+  <!-- Contact -->
+  <section class="contact" id="contact">
+    <div class="contact-info">
+      <h3>Get in Touch</h3>
+      <p><i class="fas fa-envelope"></i> <a href="mailto:ganzapatricie1@gmail.com">ganzapatricie1@gmail.com</a></p>
+      <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/250784801761" target="_blank">+250 78 480 1761</a></p>
+      <p><i class="fab fa-instagram"></i> <a href="https://instagram.com/ganza_gnz" target="_blank">@ganza_gnz</a></p>
+    </div>
+
+    <!-- ✅ Working contact form -->
+    <form action="https://formspree.io/f/xdkwdjle" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" placeholder="Your Message" rows="4" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    © 2025 Ganza Creations — Rise with Ganza
+  </footer>
+</div>
+
+<script>
+// Lightbox functionality
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.querySelector('.lightbox-img');
+const counter = document.querySelector('.lightbox-counter');
+const closeBtn = document.querySelector('.close');
+const nextBtn = document.querySelector('.next');
+const prevBtn = document.querySelector('.prev');
+const images = document.querySelectorAll('.port-item img');
+
+let currentIndex = 0;
+
+function updateLightbox() {
+  lightboxImg.src = images[currentIndex].src;
+  counter.textContent = `${currentIndex + 1} of ${images.length}`;
+  prevBtn.style.display = currentIndex === 0 ? 'none' : 'block';
+  nextBtn.style.display = currentIndex === images.length - 1 ? 'none' : 'block';
+}
+
+images.forEach((img, index) => {
+  img.addEventListener('click', () => {
+    currentIndex = index;
+    lightbox.style.display = 'flex';
+    updateLightbox();
+  });
+});
+
+closeBtn.addEventListener('click', () => {
+  lightbox.style.display = 'none';
+});
+
+nextBtn.addEventListener('click', () => {
+  if (currentIndex < images.length - 1) {
+    currentIndex++;
+    updateLightbox();
+  }
+});
+
+prevBtn.addEventListener('click', () => {
+  if (currentIndex > 0) {
+    currentIndex--;
+    updateLightbox();
+  }
+});
+
+lightbox.addEventListener('click', (e) => {
+  if (e.target === lightbox) lightbox.style.display = 'none';
+});
+</script>
+</body>
+</html>
